@@ -7,24 +7,33 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
-class MosaicCollectionViewLayout: UICollectionViewLayout {
+protocol MosaicViewLayoutDelegate: ASCollectionDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout: MosaicViewLayout, constraintWidth:CGFloat, heightAtIndexPath: IndexPath) -> CGFloat
+}
+
+class MosaicViewLayout: UICollectionViewLayout {
+    
+    var delegate: MosaicViewLayoutDelegate?
     
     private var numberOfColumns = 2
-    private var sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    private var itemSpacing: CGFloat = 10
-    private var lineSpacing: CGFloat = 10
+    private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private var itemSpacing: CGFloat = 42
+    private var lineSpacing: CGFloat = 16
     private var headerHeight: CGFloat = 0
     
     // calculate
     private var itemsAttributes = [[UICollectionViewLayoutAttributes]]()
     private var headerAttributes = [UICollectionViewLayoutAttributes]()
     private var columnHeights = [[CGFloat]]()
+    private var columnWidths = [[CGFloat]]()
     private var sectionHeights = [CGFloat]()
     private var contentSize = CGSize.zero
     
     override func prepare() {
         super.prepare()
+        print(#function)
         guard let c = collectionView else { return }
         
         itemsAttributes = []
@@ -46,14 +55,15 @@ class MosaicCollectionViewLayout: UICollectionViewLayout {
             columnHeights.append(Array(repeating: top, count: numberOfColumns)) // each column height
             itemsAttributes.append([])
             
-            let columnWidth: CGFloat = (c.bounds.width - sectionInsets.left - sectionInsets.right - CGFloat((numberOfColumns - 1)) * lineSpacing) / CGFloat(numberOfColumns)
+//            let columnWidth: CGFloat = (c.bounds.width - sectionInsets.left - sectionInsets.right - CGFloat((numberOfColumns - 1)) * lineSpacing) / CGFloat(numberOfColumns)
             for i in 0..<c.numberOfItems(inSection: s) { // item
                 let indexPath = IndexPath(item: i, section: s)
                 let shortest = columnHeights[s].reduce(columnHeights[s].first!) {return min($0.0, $0.1)}
                 let columnIdx = columnHeights[s].index(of: shortest)!
                 
-                let w: CGFloat = columnWidth
-                let h: CGFloat = 100 + CGFloat(arc4random() % 300)
+                let itemSize = _itemSizeAtIndexPath(indexPath: indexPath)
+                let w: CGFloat = itemSize.width
+                let h: CGFloat = itemSize.height
                 let x: CGFloat = sectionInsets.left + (w + lineSpacing) * CGFloat(columnIdx)
                 let y: CGFloat = shortest + itemSpacing
                 
@@ -61,6 +71,7 @@ class MosaicCollectionViewLayout: UICollectionViewLayout {
                 attributes.frame = CGRect(x: x, y: y, width: w, height: h)
                 itemsAttributes[s].append(attributes)
                 columnHeights[s][columnIdx] = attributes.frame.maxY // save the new column height
+
             }
             
             let tallest = columnHeights[s].reduce(columnHeights[s].first!) {return max($0.0, $0.1)}
@@ -70,6 +81,7 @@ class MosaicCollectionViewLayout: UICollectionViewLayout {
     }
     
     override var collectionViewContentSize: CGSize {
+        print("\(contentSize),\(#function)")
         return contentSize
     }
     
@@ -103,8 +115,36 @@ class MosaicCollectionViewLayout: UICollectionViewLayout {
         guard let c = collectionView else { return false }
         return c.bounds.equalTo(newBounds)
     }
+    
+    func _widthForSection (section: Int) -> CGFloat
+    {
+        return self.collectionView!.bounds.size.width - sectionInsets.left - sectionInsets.right;
+    }
+    
+    func _columnWidthForSection(section: Int) -> CGFloat
+    {
+        return (self._widthForSection(section: section) - ((CGFloat(numberOfColumns - 1)) * lineSpacing)) / CGFloat(numberOfColumns)
+    }
+    
+    func _itemSizeAtIndexPath(indexPath: IndexPath) -> CGSize
+    {
+        let width = _columnWidthForSection(section: indexPath.section)
+//        var size = CGSize(width: self._columnWidthForSection(section: indexPath.section), height: 0)
+        let height = self.delegate!.collectionView(self.collectionView!, layout:self, constraintWidth: width ,heightAtIndexPath:indexPath)
+//        if (originalSize.height > 0 && originalSize.width > 0) {
+//            size.height = originalSize.height / originalSize.width * size.width
+//        }
+        return CGSize(width: width, height: height)
+    }
 }
 
-extension MosaicCollectionViewLayout {
+class MosaicLayoutInspector: NSObject, ASCollectionViewLayoutInspecting {
+    func collectionView(_ collectionView: ASCollectionView, constrainedSizeForNodeAt indexPath: IndexPath) -> ASSizeRange {
+        let layout = collectionView.collectionViewLayout as! MosaicViewLayout
+        return ASSizeRangeMake(CGSize.zero, layout._itemSizeAtIndexPath(indexPath: indexPath))
+    }
     
+    func scrollableDirections() -> ASScrollDirection {
+        return ASScrollDirectionVerticalDirections;
+    }
 }

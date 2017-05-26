@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         window = UIWindow()
-        window?.rootViewController = ViewController()
+        
+        let rootVC = MosaicViewController()
+        rootVC.title = "推荐"
+        let naVC = ASNavigationController(rootViewController: rootVC)
+        naVC.hidesBarsOnSwipe = true
+        window?.rootViewController = naVC
         window?.makeKeyAndVisible()
         
         return true
