@@ -1,0 +1,33 @@
+
+/* Class = "UIButton"; normalTitle = "获取验证码"; ObjectID = "1sg-yp-6t8"; */
+"1sg-yp-6t8.normalTitle" = "获取验证码";
+
+/* Class = "UITextField"; placeholder = "请输入手机号"; ObjectID = "36C-hL-VjU"; */
+"36C-hL-VjU.placeholder" = "请输入手机号";
+
+/* Class = "UITextField"; text = "155 0100 5475"; ObjectID = "36C-hL-VjU"; */
+"36C-hL-VjU.text" = "155 0100 5475";
+
+/* Class = "UILabel"; text = "手机登录将会获得福利"; ObjectID = "7DK-cV-5CJ"; */
+"7DK-cV-5CJ.text" = "手机登录将会获得福利";
+
+/* Class = "UIButton"; normalTitle = "手机登录"; ObjectID = "BAe-4w-ZTX"; */
+"BAe-4w-ZTX.normalTitle" = "手机登录";
+
+/* Class = "UIButton"; normalTitle = "完成"; ObjectID = "Cd0-vs-q09"; */
+"Cd0-vs-q09.normalTitle" = "完成";
+
+/* Class = "UILabel"; text = "手机号"; ObjectID = "PMJ-5v-ENf"; */
+"PMJ-5v-ENf.text" = "手机号";
+
+/* Class = "UITextField"; placeholder = "请输入手机号"; ObjectID = "TFM-rp-d5n"; */
+"TFM-rp-d5n.placeholder" = "请输入手机号";
+
+/* Class = "UITextField"; text = "155 0100 5475"; ObjectID = "TFM-rp-d5n"; */
+"TFM-rp-d5n.text" = "155 0100 5475";
+
+/* Class = "UILabel"; text = "验证码"; ObjectID = "s8a-T9-xoj"; */
+"s8a-T9-xoj.text" = "验证码";
+
+/* Class = "UIButton"; normalTitle = "随便看看"; ObjectID = "wD3-0v-BQ4"; */
+"wD3-0v-BQ4.normalTitle" = "随便看看";

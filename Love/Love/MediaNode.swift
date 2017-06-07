@@ -1,14 +1,14 @@
+////
+////  MediaNode.swift
+////  Love
+////
+////  Created by Emiaostein on 25/05/2017.
+////  Copyright © 2017 emiaostein. All rights reserved.
+////
 //
-//  MediaNode.swift
-//  Love
+//import UIKit
+//import AsyncDisplayKit
 //
-//  Created by Emiaostein on 25/05/2017.
-//  Copyright © 2017 emiaostein. All rights reserved.
+//class MediaNode: ASDisplayNode {
 //
-
-import UIKit
-import AsyncDisplayKit
-
-class MediaNode: ASDisplayNode {
-
-}
+//}

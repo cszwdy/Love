@@ -18,14 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        window = UIWindow()
-        
-        let rootVC = MosaicViewController()
-        rootVC.title = "推荐"
-        let naVC = ASNavigationController(rootViewController: rootVC)
-        naVC.hidesBarsOnSwipe = true
-        window?.rootViewController = naVC
-        window?.makeKeyAndVisible()
+//        setupLogin()
+        setup()
         
         return true
     }
@@ -53,5 +47,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    
+//    func setupLogin() {
+//        window = UIWindow()
+//        let rootVC = LoginViewController()
+//        window?.rootViewController = rootVC
+//        window?.makeKeyAndVisible()
+//    }
+    
+    func setup() {
+        
+        window = UIWindow()
+        
+        let tabbarVC = ASTabBarController()
+        // bar style
+        tabbarVC.tabBar.unselectedItemTintColor = UIColor.theme.minorForward
+        tabbarVC.tabBar.theme.tintColor{_ in UIColor.theme.tint}
+        tabbarVC.tabBar.theme.backgroundColor{_ in UIColor.theme.backward}
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            App.theme.light = false
+        }
+        
+        App.theme.add {[weak tabbarVC] (light) in
+//            tabbarVC?.viewControllers?[0].setNeedsStatusBarAppearanceUpdate()
+            tabbarVC?.tabBar.barStyle = light ? UIBarStyle.default : UIBarStyle.black
+        }
+        
+        let vc: [UIViewController] = [MosaicViewController(), DiscoverViewController(), MessageViewController(), CenterViewController(), NodeTestViewController()]
+        let item = [UITabBarItem(title: "", image: #imageLiteral(resourceName: "Iconhome-normal"), selectedImage: #imageLiteral(resourceName: "Iconhome-selected")),
+                    UITabBarItem(title: "", image: #imageLiteral(resourceName: "Icondiscover-normal"), selectedImage: #imageLiteral(resourceName: "Icondiscover-selected")),
+                    UITabBarItem(title: "", image: #imageLiteral(resourceName: "Iconmessage-normal"), selectedImage: #imageLiteral(resourceName: "Iconmessage-selected")),
+                    UITabBarItem(title: "", image: #imageLiteral(resourceName: "Iconsetting-normal"), selectedImage: #imageLiteral(resourceName: "Iconsetting-selected")),
+                    UITabBarItem.init(tabBarSystemItem: .favorites, tag: 4)]
+        
+        for i in 0..<vc.count {
+            let v = vc[i]
+            v.tabBarItem = item[i]
+            v.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
+        
+        tabbarVC.viewControllers = vc
+        tabbarVC.selectedIndex = 4
+        window?.rootViewController = tabbarVC
+        window?.makeKeyAndVisible()
+    }
 }
 

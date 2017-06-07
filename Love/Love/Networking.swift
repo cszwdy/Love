@@ -17,7 +17,7 @@ protocol Epsidoe {
 }
 
 extension Epsidoe {
-    var url: URL {return App.url.domain}
+    var url: URL {return String.key.domain}
 }
 
 struct Resource<A> {
@@ -65,7 +65,6 @@ extension Resource {
         self.httpMethod = httpMethod
         self.parse = { data in
            let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-//            print("json = \(json)")
             return json.flatMap(parseJSON)
         }
     }

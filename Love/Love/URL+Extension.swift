@@ -10,7 +10,7 @@ import Foundation
 
 extension URL {
     enum PreviewMode {
-        case zero(Int, Int)
+        case zero(Int, Int) //w, h
         case one(Int, Int)
         case two(Int, Int)
         case three(Int, Int)

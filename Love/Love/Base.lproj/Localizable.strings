@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Love
+
+  Created by Emiaostein on 05/06/2017.
+  Copyright © 2017 emiaostein. All rights reserved.
+*/
+"awesome"  = "Awesome!";
+"recommand"= "Recommand";
+"message"  = "Message";
+"you"      = "You";
+"showAll"  = "Show All";
+"welfare"  = "welfare";

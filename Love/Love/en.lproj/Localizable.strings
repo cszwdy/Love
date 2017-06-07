@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  Love
+
+  Created by Emiaostein on 05/06/2017.
+  Copyright © 2017 emiaostein. All rights reserved.
+*/
+"awesome"           = "精彩内容";
+"recommand"         = "为你推荐";
+"message"           = "消息";
+"you"               = "你的";
+"showAll"           = "显示全部";
+"welfare"           = "福利";
+"subscribe"         = "订阅";
+"subscribed"        = "已订阅";

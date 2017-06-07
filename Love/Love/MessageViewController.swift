@@ -1,14 +1,15 @@
 //
-//  LoginPhoneViewController.swift
+//  MessageViewController.swift
 //  Love
 //
-//  Created by Emiaostein on 26/05/2017.
+//  Created by Emiaostein on 29/05/2017.
 //  Copyright © 2017 emiaostein. All rights reserved.
 //
 
 import UIKit
+import AsyncDisplayKit
 
-class LoginPhoneViewController: UIViewController {
+class MessageViewController: ASViewController<ASDisplayNode> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

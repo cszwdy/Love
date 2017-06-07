@@ -24,17 +24,17 @@ extension Items: Epsidoe {
     var parameters: JSONParemeter {
         if tags.count <= 0 {
             return [
-                App.key.para.action: App.key.action.getContent,
-                App.key.para.page: "\(start[0])",
-                App.key.para.pageSize: "\(size[0])"
+                String.key.account: String.key.getContent,
+                String.key.page: "\(start[0])",
+                String.key.pageSize: "\(size[0])"
             ]
         } else {
             
             return [
-                App.key.para.action: App.key.action.getContent,
-                App.key.para.tags: tags.paraStr,
-                App.key.para.start: start.paraStr,
-                App.key.para.size: size.paraStr
+                String.key.action: String.key.getContent,
+                String.key.tags: tags.paraStr,
+                String.key.start: start.paraStr,
+                String.key.size: size.paraStr
             ]
         }
     }

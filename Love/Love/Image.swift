@@ -20,4 +20,5 @@ struct Image: DisplayMediaModel {
     let height: Float
     let imageAve: String
     
+    var ratio: CGFloat {return CGFloat(height / width)}
 }

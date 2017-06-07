@@ -16,8 +16,8 @@ struct Login {
 extension Login: Epsidoe {
     var resource: Resource<LoginModel> { return Resource(url: url, httpMethod: .post(parameters), parseJSON: LoginModel.init)}
     var parameters: JSONParemeter { return [
-        App.key.para.action: App.key.action.login,
-        App.key.para.account:"\(account)" ,
-        App.key.para.verifiedCode:"\(code)"]
+        String.key.action: String.key.login,
+        String.key.account:"\(account)" ,
+        String.key.code:"\(code)"]
     }
 }
